@@ -1,11 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 
-get '/' do
-  dict = build_dictionary
-end
-
-def build_dictionary
+configure do
   sorted_dict = {}
   file = File.open('dict.txt','r')
   contents = file.read
@@ -14,5 +10,12 @@ def build_dictionary
     sorted_dict[word.length] = [] unless sorted_dict[word.length].is_a? Array
     sorted_dict[word.length] << word
   end
-  sorted_dict
+  DICT = sorted_dict
 end
+
+get '/' do
+  slim :index
+end
+
+get '/play' do
+end 
