@@ -10,12 +10,14 @@ configure do
     sorted_dict[word.length] = [] unless sorted_dict[word.length].is_a? Array
     sorted_dict[word.length] << word
   end
-  DICT = sorted_dict
+  DICT = sorted_dict.sort.to_h
 end
 
 get '/' do
-  slim :index
+  slim :index, locals: { dict: DICT }
 end
 
-get '/play' do
-end 
+post '/play' do
+  secret_word = DICT[params[:difficulty].to_i].sample
+  slim :play, locals: { secret_word: secret_word }
+end

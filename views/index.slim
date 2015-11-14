@@ -4,3 +4,12 @@ html
     title Hangman
   body
     h1 Hangman
+    form action='/play' method='post' 
+      label for='difficulty' Select Difficulty
+      br
+      select name="difficulty"
+        - dict.keys.each do |diff|
+          option value="#{diff}"= diff
+      br
+      button type='submit' Start Game!
+
