@@ -18,6 +18,8 @@ end
 get '/' do
   session['used_letters'] = []
   session['difficulty'] = 5
+  session['message'] = nil
+  session['guesses'] = 0
   slim :index, locals: { dict: DICT }
 end
 
@@ -32,7 +34,7 @@ get '/play' do
 end 
 
 post '/guess' do
-  session['used_letters'] << params['guess']
+  session['used_letters'] << params['guess'].strip
   if session['secret_word'].include? params['guess']
     session['message'] = 'Correct'
   else

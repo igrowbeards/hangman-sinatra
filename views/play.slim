@@ -10,13 +10,14 @@ html
     p
       | difficulty:
       = difficulty
-    ul
-      - used_letters.each do |l|
-        = l
-    p
-    .message
+    p.message
       = message
     form action='/guess' method='post' 
-      label for='guess'
-      input name='guess'
+      - ('a'..'z').each do |letter|
+        - if used_letters.include? letter
+          input type='radio' name='guess' value="#{letter}" disabled=''
+        - else 
+          input type='radio' name='guess' value="#{letter}"
+        =letter
+      br
       button type='submit' Guess!
