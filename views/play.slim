@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Hangman
+    meta name="viewport" content="width=device-width, initial-scale=1"
     link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" 
     link href='/hangman.css' rel='stylesheet'
     script src="https://code.jquery.com/jquery-2.1.4.min.js"
@@ -13,6 +14,7 @@ html
         .col-sm-6.col-sm-offset-3
           #hanged-man
             img src="/miss-#{incorrect}.png"
+            = secret_word
           - if !gameover
             p
               span#secret_word
