@@ -5,27 +5,34 @@ html
     link href='/hangman.css' rel='stylesheet'
   body
     h1 Hangman
-    p
-     | The Secret Word is:
-     - secret_word.split("").each do |secret_letter|
-       - if used_letters.include? secret_letter
-         = secret_letter
-       - else
-         |_
+    - if !gameover
+      p
+       | The Secret Word is:
+       - secret_word.split("").each do |secret_letter|
+         - if used_letters.include? secret_letter
+           = secret_letter
+         - else
+           |_
+    - elsif gameover
+      = "The Secret Word was: #{secret_word.upcase}"
     p.message
       = message
 
-    form action='/guess' method='post' 
-      - ('a'..'z').each do |letter|
-        - case
-          - when used_letters.include?(letter)
-            span.letter.used
-              input type='radio' name='guess' value="#{letter}" disabled=''
-              =letter 
-          - else
-            span.letter
-              input type='radio' name='guess' value="#{letter}"
-                =letter
-        | &nbsp
-      br
-      button type='submit' Guess!
+    - unless gameover
+      form action='/guess' method='post' 
+        - ('a'..'z').each do |letter|
+          - case
+            - when used_letters.include?(letter)
+              span.letter.used
+                input type='radio' name='guess' value="#{letter}" disabled=''
+                =letter 
+            - else
+              span.letter
+                input type='radio' name='guess' value="#{letter}"
+                  =letter
+          | &nbsp
+        br
+        button type='submit' Guess!
+    - if gameover
+      a href='/' 
+        | Play Again?
