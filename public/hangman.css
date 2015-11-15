@@ -7,8 +7,13 @@ body {
   color: #477b58;
 }
 
+
 #index .container {
   padding-top: 10px;
+}
+
+#play .container {
+  padding-bottom: 20px;
 }
 
 #hanged-man {
@@ -19,7 +24,11 @@ span.letter {
   background: #6a6;
   display: inline-block;
   color: #fff;
-  padding: 5px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px;
+  text-transform: uppercase;
 } 
 
 span.letter.used {
@@ -33,3 +42,17 @@ span.letter.used {
   text-transform: uppercase;
   text-align: center;
 }
+
+/* Ajax styles */
+
+body#play.js-enabled #guess {
+  display: none;
+}
+
+body#play.js-enabled .letter, body#play.js-enabled .letter label {
+  cursor: pointer;
+}
+
+body#play.js-enabled input[type="radio"] {
+  display:none;
+} 

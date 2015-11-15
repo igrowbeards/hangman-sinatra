@@ -4,8 +4,10 @@ html
     title Hangman
     link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" 
     link href='/hangman.css' rel='stylesheet'
+    script src="https://code.jquery.com/jquery-2.1.4.min.js"
     script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
-  body
+    script src="/play.js"
+  body#play
     .container
       .row
         .col-sm-6.col-sm-offset-3
@@ -13,14 +15,17 @@ html
             img src="/miss-#{incorrect}.png"
           - if !gameover
             p
-             span#secret_word
-               - secret_word.split("").each do |secret_letter|
-                 - if used_letters.include? secret_letter
-                   = secret_letter
-                 - else
-                   |_
+              span#secret_word
+                - secret_word.split("").each do |secret_letter|
+                  - if used_letters.include? secret_letter
+                    = secret_letter
+                  - else
+                    |_
           - elsif gameover
-            = "The Secret Word was: #{secret_word.upcase}"
+            br
+            p
+              |The Secret Word was:
+            h2= secret_word.upcase
           p.message
             = message
 
@@ -30,15 +35,17 @@ html
                 - case
                   - when used_letters.include?(letter)
                     span.letter.used
-                      input type='radio' name='guess' value="#{letter}" disabled=''
-                      =letter 
+                      input type='radio' id="radio_#{letter}" name='guess' value="#{letter}" disabled=''
+                      label for="radio_#{letter}"
+                        =letter 
                   - else
-                    span.letter
-                      input type='radio' name='guess' value="#{letter}"
-                        =letter
+                    span.letter.fresh
+                      input type='radio' id="radio_#{letter}" name='guess' value="#{letter}"
+                        label for="radio_#{letter}"
+                          =letter 
                 | &nbsp
               br
-              button.btn.btn-primary type='submit' Guess!
+              button#guess.btn.btn-primary.btn-lg type='submit' Guess!
           - if gameover
-            a href='/' 
-              | Play Again?
+            a href='/' class="btn btn-primary btn-lg"
+              | Play Again

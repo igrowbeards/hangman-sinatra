@@ -24,13 +24,15 @@ class HangMan < Sinatra::Base
   end
 
   post '/start_game' do
+    cleanup_session
     session['difficulty'] = params['difficulty']
     session['secret_word'] = DICT[params[:difficulty].to_i].sample
     redirect '/play'
   end
 
   get '/play' do
-    slim :play, locals: { difficulty: session['difficulty'], secret_word: session['secret_word'], used_letters: session['used_letters'], message: session['message'], gameover: session['gameover'] }
+    redirect_unless_gamestarted
+    slim :play, locals: { difficulty: session['difficulty'], secret_word: session['secret_word'], used_letters: session['used_letters'], message: session['message'], gameover: session['gameover'], incorrect: session['incorrect'] }
   end 
 
   post '/guess' do
@@ -45,21 +47,28 @@ class HangMan < Sinatra::Base
 
   private
 
+  def redirect_unless_gamestarted
+    if session['difficulty'] == nil
+      redirect '/'
+    end
+  end
+
   def gameover?
     # player has won if they have no more blanks in their secret word
     uniqs = session['secret_word'].split('')
     if ( uniqs - session['used_letters']) == []
-      session['message'] += ' - You Win!'
+      session['gameover'] = true
+      session['message'] = 'You Win!'
     # player has lost if they have guessed incorrectly 6 times
     elsif session['incorrect'] >= LOSE_SCORE
       session['gameover'] = true
-      session['message'] += ' - You Lose!'
+      session['message'] = 'You Lose!'
     end
   end
 
   def cleanup_session
     session['used_letters'] = []
-    session['difficulty'] = 5
+    session['difficulty'] = nil
     session['message'] = nil
     session['incorrect'] = 0
     session['gameover'] = false

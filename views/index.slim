@@ -4,6 +4,7 @@ html
     title Hangman
     link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" 
     link href='/hangman.css' rel='stylesheet'
+    script src="https://code.jquery.com/jquery-2.1.4.min.js"
     script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
 
   body#index
@@ -20,5 +21,5 @@ html
                 - dict.keys.each do |diff|
                   option value="#{diff}"= diff
             .form-group
-              button.btn.btn-success type='submit' Start Game!
+              button.btn.btn-primary.btn-lg type='submit' Start Game!
 
