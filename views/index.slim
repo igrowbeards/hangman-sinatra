@@ -18,7 +18,7 @@ html
               label for='difficulty' -Select Difficulty-
               br
               select.form-control name="difficulty"
-                - dict.keys.each do |diff|
+                - dict.keys.reverse.each do |diff|
                   option value="#{diff}"= diff
             .form-group
               button.btn.btn-primary.btn-lg type='submit' Start Game!
