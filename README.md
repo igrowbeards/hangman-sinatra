@@ -11,15 +11,18 @@ See it in action at [https://radiant-peak-5622.herokuapp.com/](https://radiant-p
     ```
     git clone git@github.com:igrowbeards/hangman-sinatra.git
     ```
+
   2. Change into the newly cloned repo folder
     ```
     $> cd hangman-sinatra
     ```
+
   3. Install necesary gems with [Bundler](http://bundler.io/)
     ```
     $> bundle install
     ```
-  3. Launch the rack server
+
+  4. Launch the rack server
     ```
     $> rackup
     ```
