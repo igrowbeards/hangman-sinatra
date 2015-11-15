@@ -13,14 +13,16 @@ configure do
     sorted_dict[word.length] << word
   end
   DICT = sorted_dict.sort.to_h
+
+  LOSE_SCORE = 6
 end
 
 get '/' do
+  cleanup_session
   slim :index, locals: { dict: DICT }
 end
 
 post '/start_game' do
-  cleanup_session
   session['difficulty'] = params['difficulty']
   session['secret_word'] = DICT[params[:difficulty].to_i].sample
   redirect '/play'
@@ -32,25 +34,32 @@ end
 
 post '/guess' do
   session['used_letters'] << params['guess'].strip
+  unless session['secret_word'].include? params['guess'] 
+    session['incorrect'] += 1
+  end
   set_message
   gameover?
   redirect '/play'
 end
+
+private
 
 def gameover?
   # player has won if they have no more blanks in their secret word
   uniqs = session['secret_word'].split('')
   if ( uniqs - session['used_letters']) == []
     session['message'] += ' - You Win!'
+  # player has lost if they have guessed incorrectly 6 times
+  elsif session['incorrect'] >= LOSE_SCORE
+    session['message'] += ' - You Lose!'
   end
-  # player has lost if they go over the secret word length + 5
 end
 
 def cleanup_session
   session['used_letters'] = []
   session['difficulty'] = 5
   session['message'] = nil
-  session['guesses'] = 0
+  session['incorrect'] = 0
 end
 
 def set_message
