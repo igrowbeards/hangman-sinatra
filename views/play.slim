@@ -5,6 +5,10 @@ html
   body
     h1 Hangman
     p
-      | The secret word is 
-      = secret_word
-
+      | difficulty:
+      = difficulty
+    p
+    form action='/guess' method='post' 
+      label for='guess'
+      input name='guess'
+      button type='submit' Guess!  

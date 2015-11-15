@@ -11,13 +11,22 @@ configure do
     sorted_dict[word.length] << word
   end
   DICT = sorted_dict.sort.to_h
+
+  # game tracking variables
+  @@used_letters = []
+  @@difficulty = 0
 end
 
 get '/' do
   slim :index, locals: { dict: DICT }
 end
 
-post '/play' do
-  secret_word = DICT[params[:difficulty].to_i].sample
-  slim :play, locals: { secret_word: secret_word }
+post '/start_game' do
+  @@difficulty = params['difficulty']
+  @@secret_word = DICT[params[:difficulty].to_i].sample
+  redirect '/play'
 end
+
+get '/play' do
+  slim :play, locals: { difficulty: @@difficulty, secret_word: @@secret_word }
+end 
