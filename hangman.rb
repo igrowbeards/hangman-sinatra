@@ -1,12 +1,11 @@
 require 'sinatra/reloader'
 
 class HangMan < Sinatra::Base
-
   enable :sessions
 
   configure do
     sorted_dict = {}
-    file = File.open('dict.txt','r')
+    file = File.open('dict.txt', 'r')
     contents = file.read
     dict_array = contents.split(' ')
     dict_array.each do |word|
@@ -32,12 +31,19 @@ class HangMan < Sinatra::Base
 
   get '/play' do
     redirect_unless_gamestarted
-    slim :play, locals: { difficulty: session['difficulty'], secret_word: session['secret_word'], used_letters: session['used_letters'], message: session['message'], gameover: session['gameover'], incorrect: session['incorrect'] }
-  end 
+    slim :play, locals: {
+      difficulty: session['difficulty'],
+      secret_word: session['secret_word'],
+      used_letters: session['used_letters'],
+      message: session['message'],
+      gameover: session['gameover'],
+      incorrect: session['incorrect']
+    }
+  end
 
   post '/guess' do
     session['used_letters'] << params['guess'].strip
-    unless session['secret_word'].include? params['guess'] 
+    unless session['secret_word'].include? params['guess']
       session['incorrect'] += 1
     end
     guess_response_message
@@ -48,15 +54,13 @@ class HangMan < Sinatra::Base
   private
 
   def redirect_unless_gamestarted
-    if session['difficulty'] == nil
-      redirect '/'
-    end
+    redirect '/' if session['difficulty'].nil?
   end
 
   def gameover?
     # player has won if they have no more blanks in their secret word
     uniqs = session['secret_word'].split('')
-    if ( uniqs - session['used_letters']) == []
+    if (uniqs - session['used_letters']) == []
       session['gameover'] = true
       session['message'] = 'You Win!'
     # player has lost if they have guessed incorrectly 6 times
