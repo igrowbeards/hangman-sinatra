@@ -46,7 +46,6 @@ class HangMan < Sinatra::Base
     unless session['secret_word'].include? params['guess']
       session['incorrect'] += 1
     end
-    #guess_response_message
     gameover?
     redirect '/play'
   end
@@ -76,13 +75,5 @@ class HangMan < Sinatra::Base
     session['message'] = nil
     session['incorrect'] = 0
     session['gameover'] = false
-  end
-
-  def guess_response_message
-    if session['secret_word'].include? params['guess']
-      session['message'] = 'Correct'
-    else
-      session['message'] = 'Incorrect'
-    end
   end
 end
