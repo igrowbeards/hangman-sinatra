@@ -1,0 +1,10 @@
+span.letter {
+  background: #6a6;
+  display: inline-block;
+  color: #fff;
+  padding: 5px;
+} 
+
+span.letter.used {
+  background: #777;
+} 
