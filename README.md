@@ -9,7 +9,7 @@ See it in action at [https://radiant-peak-5622.herokuapp.com/](https://radiant-p
 
   1. Clone the repo
     ```
-    git clone git@github.com:igrowbeards/hangman-sinatra.git
+    $> git clone git@github.com:igrowbeards/hangman-sinatra.git
     ```
 
   2. Change into the newly cloned repo folder
