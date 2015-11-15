@@ -21,7 +21,6 @@ body {
 }
 
 span.letter {
-  background: #6a6;
   display: inline-block;
   color: #fff;
   width: 40px;
@@ -29,10 +28,16 @@ span.letter {
   line-height: 40px;
   margin: 5px;
   text-transform: uppercase;
+  background: #777;
 } 
 
 span.letter.used {
-  background: #777;
+  background: #3ac766;
+} 
+
+span.letter.used.invalid {
+  background: #c77;
+  color: #a00;
 } 
 
 #secret_word {
@@ -51,6 +56,10 @@ body#play.js-enabled #guess {
 
 body#play.js-enabled .letter, body#play.js-enabled .letter label {
   cursor: pointer;
+}
+
+body#play.js-enabled .letter.used, body#play.js-enabled .letter.used label {
+  cursor: initial;
 }
 
 body#play.js-enabled input[type="radio"] {

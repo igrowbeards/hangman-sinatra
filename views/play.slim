@@ -33,7 +33,12 @@ html
             form action='/guess' method='post' 
               - ('a'..'z').each do |letter|
                 - case
-                  - when used_letters.include?(letter)
+                  - when used_letters.include?(letter) && !secret_word.include?(letter)
+                    span.letter.used.invalid
+                      input type='radio' id="radio_#{letter}" name='guess' value="#{letter}" disabled=''
+                      label for="radio_#{letter}"
+                        =letter 
+                  - when used_letters.include?(letter) 
                     span.letter.used
                       input type='radio' id="radio_#{letter}" name='guess' value="#{letter}" disabled=''
                       label for="radio_#{letter}"
