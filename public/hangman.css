@@ -1,3 +1,20 @@
+html {
+  text-align: center;
+}
+
+body {
+  background: #75d688 url('/otis_redding.png');
+  color: #477b58;
+}
+
+#index .container {
+  padding-top: 10px;
+}
+
+#hanged-man {
+  margin-top: 50px
+}
+
 span.letter {
   background: #6a6;
   display: inline-block;
@@ -8,3 +25,11 @@ span.letter {
 span.letter.used {
   background: #777;
 } 
+
+#secret_word {
+  display: block;
+  font-size: 40px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-align: center;
+}
