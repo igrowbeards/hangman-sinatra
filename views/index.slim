@@ -2,14 +2,21 @@ doctype html
 html
   head
     title Hangman
+    link href='/hangman.css' rel='stylesheet'
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+
   body
-    h1 Hangman
-    form action='/start_game' method='post' 
-      label for='difficulty' Select Difficulty
-      br
-      select name="difficulty"
-        - dict.keys.each do |diff|
-          option value="#{diff}"= diff
-      br
-      button type='submit' Start Game!
+    .container
+      .row
+        .col-sm-6.col-sm-offset-3
+          h1 Hangman
+          form action='/start_game' method='post' 
+            label for='difficulty' Select Difficulty
+            br
+            select name="difficulty"
+              - dict.keys.each do |diff|
+                option value="#{diff}"= diff
+            br
+            button type='submit' Start Game!
 
