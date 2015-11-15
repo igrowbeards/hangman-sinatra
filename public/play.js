@@ -1,5 +1,3 @@
-
-
 $( document ).ready(function() {
   function preloadImg(src) {
       $('<img/>')[0].src = src;
@@ -11,7 +9,6 @@ $( document ).ready(function() {
   preloadImg('/miss-3.png');
   preloadImg('/miss-4.png');
   preloadImg('/miss-5.png');
-  preloadImg('/miss-6.png');
   
   $('body').addClass('js-enabled');
 

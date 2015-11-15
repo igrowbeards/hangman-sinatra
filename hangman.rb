@@ -14,7 +14,7 @@ class HangMan < Sinatra::Base
     end
     DICT = sorted_dict.sort.to_h
 
-    LOSE_SCORE = 6
+    LOSE_SCORE = 5
   end
 
   get '/' do
